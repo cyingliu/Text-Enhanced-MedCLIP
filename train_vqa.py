@@ -31,6 +31,7 @@ if __name__ == '__main__':
     parser.add_argument("--seed", type=int, default=123, help="Seed for train/val split.")
     # ***** Model ***** 
     parser.add_argument("--clip_model_name", type=str, default="openai/clip-vit-base-patch32")
+    parser.add_argument("--text_model_path", type=str)
     # ***** Trainer *****
     parser.add_argument("--output_dir", type=str)
     parser.add_argument("--batch_size", type=int, default=8)
@@ -91,7 +92,9 @@ if __name__ == '__main__':
     
     # 2. Init model
     num_labels = 2 if args.task == "binary" else 458 # num of distinct answers in the train set
-    model = CLIPwithLinearFusion(args.clip_model_name, num_labels).to(device)
+    model = CLIPwithLinearFusion(args.clip_model_name, 
+                                 text_model_path=args.text_model_path,
+                                 num_labels=num_labels).to(device)
 
     # 3. Train model
     training_args = TrainingArguments(output_dir=args.output_dir,

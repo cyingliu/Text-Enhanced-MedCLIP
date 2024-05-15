@@ -10,9 +10,18 @@ class CLIPwithLinearFusion(nn.Module):
         Apply a fully connected network on concatenated text and image features
         Predict a scalar score for binary/multi-class classification
     """
-    def __init__(self, clip_model_name, num_labels):
+    def __init__(self, clip_model_name, text_model_path=None, num_labels=2):
         super().__init__()
         self.base_model = AutoModel.from_pretrained(clip_model_name)
+
+        if text_model_path:
+            print("Load text model weight from:", text_model_path)
+            text_model_dict = torch.load(text_model_path, map_location="cpu")
+            text_model_dict = {k: v for k, v in text_model_dict.items() if k.startswith("text_model")}
+            base_model_dict = self.base_model.state_dict()
+            base_model_dict.update(text_model_dict)
+            self.base_model.load_state_dict(base_model_dict)
+
         self.num_labels = num_labels
         projection_dim = self.base_model.projection_dim
         output_dim = 1 if num_labels == 2 else num_labels # scalar output for binary classification
