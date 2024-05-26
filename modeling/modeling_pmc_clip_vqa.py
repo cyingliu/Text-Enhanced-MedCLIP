@@ -82,7 +82,6 @@ class PMC_CLIPforVQA(nn.Module):
             last_token_index = torch.nonzero((text_output["encoded_input"]['input_ids'] == self.cls_id).squeeze())
             pooled_feature = fusion_features[torch.arange(fusion_features.shape[0]), last_token_index[:, 1]] # the 0-index of each row
 
-        print("pooled_feature:", pooled_feature.shape)
         logits = self.MLP(pooled_feature).squeeze() # (N,) or (N, C)
 
         loss = None
