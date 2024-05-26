@@ -16,7 +16,9 @@ from transformers import AutoTokenizer, CLIPImageProcessor
 from transformers import TrainingArguments, Trainer
 
 
-from modeling_clip import CLIPwithLinearFusion
+from modeling import CLIPwithLinearFusion, PMC_CLIPforVQA
+from transform import train_transform, test_transform
+from data_collator import torch_images_and_label_data_collator
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("device:", device)
@@ -30,8 +32,14 @@ if __name__ == '__main__':
     parser.add_argument("--task", default="binary", choices=["binary", "multiclass"])
     parser.add_argument("--seed", type=int, default=123, help="Seed for train/val split.")
     # ***** Model ***** 
-    parser.add_argument("--clip_model_name", type=str, default="openai/clip-vit-base-patch32")
+    parser.add_argument("--base_model", type=str, choices=["clip", "pmc-clip"])
     parser.add_argument("--text_model_path", type=str)
+    # ***** CLIP with Linear Fusion *****#
+    parser.add_argument("--clip_model_name", type=str, default="openai/clip-vit-base-patch32")
+    # ***** PMC-CLIP for VQA
+    parser.add_argument("--checkpoint", type=str)
+    parser.add_argument("--config", type=str, default="./modeling/pmc_clip/model_configs/RN50_fusion4.json")
+    parser.add_argument("--pool_type", type=str, default="average", choices=["average", "cls"])
     # ***** Trainer *****
     parser.add_argument("--output_dir", type=str)
     parser.add_argument("--batch_size", type=int, default=8)
@@ -61,22 +69,42 @@ if __name__ == '__main__':
     if args.task == "binary":
         train_val_test_dataset = train_val_test_dataset.filter(lambda example: example["answer"].lower() in ("yes", "no"))
 
-    image_processor = CLIPImageProcessor.from_pretrained("openai/clip-vit-base-patch32")
-    tokenizer = AutoTokenizer.from_pretrained("openai/clip-vit-base-patch32")
-
-    def preprocess(batch):
+    def preprocess_labels(batch):
         if args.task == "binary":
             batch["labels"] = [1 if answer.lower() == "yes" else 0 for answer in batch["answer"]]
         else: # "multiclass"
             raise NotImplementedError
+        return batch 
+    train_val_test_dataset = train_val_test_dataset.map(preprocess_labels, batch=True)
+
+    image_processor = CLIPImageProcessor.from_pretrained("openai/clip-vit-base-patch32")
+    tokenizer = AutoTokenizer.from_pretrained("openai/clip-vit-base-patch32")
+    def preprocess_clip(batch):
         image_features = image_processor(batch["image"])
         text_features = tokenizer(batch["question"])
         batch = {**image_features, **text_features, **batch}
         return batch
     
-    processed_dataset = train_val_test_dataset.map(preprocess, batched=True)
-    processed_dataset = processed_dataset.remove_columns(["image", "question", "answer"])
+    def preprocess_pmcclip(batch):
+        batch['bert_input'] = [question for question in batch['question']] # pmc-clip tokenize text inputs in the forward call
+        batch['bert_label'] = [question for question in batch['question']]
+        return batch
+    
+    if args.base_model == "clip":
+        preprocess_fn = preprocess_clip
+        remove_columns = ["image", "question", "answer"]
+    elif args.base_model == "pmc-clip":
+        preprocess_fn = preprocess_pmcclip
+        remove_columns = ["question", "answer"]
+
+    processed_dataset = train_val_test_dataset.map(preprocess_fn, batched=True)
+    processed_dataset = processed_dataset.remove_columns(remove_columns)
         
+    if args.base_model == "pmc-clip":
+        processed_dataset['train'].set_transform(train_transform)
+        processed_dataset['val'].set_transform(test_transform)
+        processed_dataset['test'].set_transform(test_transform)
+    
     def compute_accuracy(eval_pred):
         logits = eval_pred.predictions # ndarray
         labels = eval_pred.label_ids # ndarray
@@ -92,9 +120,17 @@ if __name__ == '__main__':
     
     # 2. Init model
     num_labels = 2 if args.task == "binary" else 458 # num of distinct answers in the train set
-    model = CLIPwithLinearFusion(args.clip_model_name, 
+    
+    if args.base_model == "clip":
+        model = CLIPwithLinearFusion(args.clip_model_name, 
                                  text_model_path=args.text_model_path,
                                  num_labels=num_labels).to(device)
+    elif args.base_model == "pmc-clip":
+        model = PMC_CLIPforVQA(args.checkpoint, 
+                            args.config, 
+                            text_model_path=args.text_model_path, 
+                            num_labels=num_labels, 
+                            pool_type=args.pool_type).to(device) 
 
     # 3. Train model
     training_args = TrainingArguments(output_dir=args.output_dir,
@@ -115,14 +151,20 @@ if __name__ == '__main__':
     if "wandb" in args.report_to:
         wandb.init(project=args.project)
 
-    trainer = Trainer(
-        model=model,
-        args=training_args,
-        train_dataset=processed_dataset["train"],
-        eval_dataset=processed_dataset["val"],
-        tokenizer=tokenizer,
-        compute_metrics=compute_accuracy,
-    )
+    base_trainer_args = dict(model=model,
+                            args=training_args,
+                            train_dataset=processed_dataset["train"],
+                            eval_dataset=processed_dataset["val"],
+                            compute_metrics=compute_accuracy)
+    clip_trainer_args = {"tokenizer": tokenizer, **base_trainer_args}
+    pmcclip_trainer_args = {"data_collator": torch_images_and_label_data_collator, **base_trainer_args}
+
+    if args.base_model == "clip":
+        trainer_args = clip_trainer_args 
+    elif args.base_model == "pmc-clip":
+        trainer_args = pmcclip_trainer_args
+
+    trainer = Trainer(**trainer_args)
 
     print("Training ...")
     trainer.train()
@@ -142,12 +184,3 @@ if __name__ == '__main__':
     print(f"Test accuracy: {test_results['eval_accuracy']}")
 
     wandb.finish()
-
-
-
-
-
-
-
-
-    
