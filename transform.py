@@ -31,3 +31,4 @@ def train_transform(batch):
 
 def test_transform(batch):
     batch['image'] = [test_image_transform(img) for img in batch['image']]
+    return batch

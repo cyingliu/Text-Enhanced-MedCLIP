@@ -75,10 +75,10 @@ if __name__ == '__main__':
         else: # "multiclass"
             raise NotImplementedError
         return batch 
-    train_val_test_dataset = train_val_test_dataset.map(preprocess_labels, batch=True)
+    train_val_test_dataset = train_val_test_dataset.map(preprocess_labels, batched=True)
 
-    image_processor = CLIPImageProcessor.from_pretrained("openai/clip-vit-base-patch32")
-    tokenizer = AutoTokenizer.from_pretrained("openai/clip-vit-base-patch32")
+    image_processor = CLIPImageProcessor.from_pretrained(args.clip_model_name)
+    tokenizer = AutoTokenizer.from_pretrained(args.clip_model_name)
     def preprocess_clip(batch):
         image_features = image_processor(batch["image"])
         text_features = tokenizer(batch["question"])
@@ -105,22 +105,10 @@ if __name__ == '__main__':
         processed_dataset['val'].set_transform(test_transform)
         processed_dataset['test'].set_transform(test_transform)
     
-    def compute_accuracy(eval_pred):
-        logits = eval_pred.predictions # ndarray
-        labels = eval_pred.label_ids # ndarray
-        if len(logits.shape) == 1:
-            # binary classification
-            predictions = logits > 0.5
-        else:
-            # multi class classification
-            predictions = torch.argmax(logits, dim=1)
-        accuracy = (predictions == labels).mean()
 
-        return {"accuracy": accuracy}
     
     # 2. Init model
     num_labels = 2 if args.task == "binary" else 458 # num of distinct answers in the train set
-    
     if args.base_model == "clip":
         model = CLIPwithLinearFusion(args.clip_model_name, 
                                  text_model_path=args.text_model_path,
@@ -130,7 +118,8 @@ if __name__ == '__main__':
                             args.config, 
                             text_model_path=args.text_model_path, 
                             num_labels=num_labels, 
-                            pool_type=args.pool_type).to(device) 
+                            pool_type=args.pool_type,
+                            device=device).to(device) 
 
     # 3. Train model
     training_args = TrainingArguments(output_dir=args.output_dir,
@@ -146,11 +135,24 @@ if __name__ == '__main__':
                                       load_best_model_at_end=args.load_best_model_at_end,
                                       metric_for_best_model=args.metric_for_best_model,
                                       report_to=args.report_to,
-                                      save_safetensors=False)
+                                      save_safetensors=False,
+                                      label_names=["labels"])
 
     if "wandb" in args.report_to:
         wandb.init(project=args.project)
 
+    def compute_accuracy(eval_pred):
+        logits = eval_pred.predictions # ndarray
+        labels = eval_pred.label_ids # ndarray
+        if len(logits.shape) == 1:
+            # binary classification
+            predictions = logits > 0.5
+        else:
+            # multi class classification
+            predictions = torch.argmax(logits, dim=1)
+        accuracy = (predictions == labels).mean()
+        return {"accuracy": accuracy}
+    
     base_trainer_args = dict(model=model,
                             args=training_args,
                             train_dataset=processed_dataset["train"],

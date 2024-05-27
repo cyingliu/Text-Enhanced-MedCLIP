@@ -1,5 +1,5 @@
 from argparse import Namespace
-from typing import Any, Optional, Tuple, Union
+from typing import Any, Optional, Tuple, Union, List
 import json
 
 import torch
@@ -8,7 +8,7 @@ import torch.nn.functional as F
 from transformers import AutoModel, AutoProcessor, AutoTokenizer
 from transformers.modeling_outputs import ImageClassifierOutput
 
-from pmc_clip.model import PMC_CLIP 
+from .pmc_clip.model import PMC_CLIP 
 
 class PMC_CLIPforVQA(nn.Module):
     """
@@ -23,7 +23,7 @@ class PMC_CLIPforVQA(nn.Module):
             pool_type: "average" or "cls"
             
     """
-    def __init__(self, checkpoint_path, config_path, text_model_path=None, num_labels=2, pool_type="average"):
+    def __init__(self, checkpoint_path, config_path, text_model_path=None, num_labels=2, pool_type="average", device="cuda"):
         super().__init__()
         
         model_config = json.load(open(config_path))

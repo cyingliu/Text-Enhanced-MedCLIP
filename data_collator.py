@@ -1,5 +1,6 @@
 from typing import Any, Callable, Dict, List, NewType, Optional, Tuple, Union
-import torch 
+import numpy as np 
+import torch
 
 def torch_images_and_label_data_collator(features: List[Any]) -> Dict[str, Any]:
     """
@@ -7,6 +8,7 @@ def torch_images_and_label_data_collator(features: List[Any]) -> Dict[str, Any]:
         leave bert_input and bert_label as list of strings,
         which will be tokenized and collated in PMC-CLIP
     """
+    batch = {}
     first = features[0]
     for k, v in first.items():
         if k not in ("bert_input", "bert_label") and v is not None:
