@@ -14,8 +14,8 @@ import torch.nn.functional as F
 from torch import nn
 from torch.utils.checkpoint import checkpoint
 
-from pmc_clip.timm_model import TimmModel
-from pmc_clip.utils import freeze_batch_norm_2d, to_2tuple
+from ..timm_model import TimmModel
+from ..utils import freeze_batch_norm_2d, to_2tuple
 
 from transformers import AutoTokenizer, AutoModel
 
