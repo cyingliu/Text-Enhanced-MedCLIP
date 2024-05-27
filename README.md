@@ -2,7 +2,11 @@
 CS 231N Final Project
 
 ## Usage
-- Fine-tuning on VQA-RAD dataset
+- Set up
+    1. Install pytorch (>2.0.0), torchvision, torchaudio, pytorch-cuda. Refer to [pytorch official website](https://pytorch.org/get-started/previous-versions/) to find versions compatible with cuda.
+    2. Install packages by ```pip install -r requirements.txt```
+    3. (Optional) ```wandb login```
+- Fine-tune on VQA-RAD dataset
     - CLIP + linear fusion
         ```
         python train_vqa.py \
