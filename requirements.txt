@@ -1,0 +1,11 @@
+wandb==0.17.0
+matplotlib==3.9.0
+transformers==4.38.2
+datasets==2.19.1
+accelerate==0.30.1
+timm
+ftfy
+braceexpand
+webdataset
+jsonlines
+tensorboard
