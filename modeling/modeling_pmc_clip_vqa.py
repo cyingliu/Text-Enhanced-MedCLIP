@@ -34,7 +34,7 @@ class PMC_CLIPforVQA(nn.Module):
         model_config["args"] = args
         model_config.pop("clip_model")
         self.base_model = PMC_CLIP(**model_config)
-        checkpoint = torch.load(checkpoint_path)
+        checkpoint = torch.load(checkpoint_path, map_location=device)
         state_dict = checkpoint["state_dict"]
         sd = {k[len('module.'):]: v for k, v in state_dict.items()}
         if "text_encoder.embeddings.position_ids" in sd:
@@ -44,7 +44,7 @@ class PMC_CLIPforVQA(nn.Module):
         
         if text_model_path:
             print("Load text model weight from:", text_model_path)
-            text_model_dict = torch.load(text_model_path)
+            text_model_dict = torch.load(text_model_path, map_location=device)
             text_model_dict = {k: v for k, v in text_model_dict.items() if k.startswith("text_model")}
             base_model_dict = self.base_model.state_dict()
             base_model_dict.update(text_model_dict)

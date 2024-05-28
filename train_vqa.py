@@ -92,14 +92,14 @@ if __name__ == '__main__':
     
     if args.base_model == "clip":
         preprocess_fn = preprocess_clip
-        remove_columns = ["image", "question", "answer"]
+        select_columns = ['labels', 'pixel_values', 'input_ids', 'attention_mask']
     elif args.base_model == "pmc-clip":
         preprocess_fn = preprocess_pmcclip
-        remove_columns = ["question", "answer"]
+        select_columns = ['image', 'labels', 'bert_input', 'bert_label']
 
     processed_dataset = train_val_test_dataset.map(preprocess_fn, batched=True)
-    processed_dataset = processed_dataset.remove_columns(remove_columns)
-        
+    processed_dataset = processed_dataset.select_columns(select_columns)
+    
     if args.base_model == "pmc-clip":
         processed_dataset['train'].set_transform(train_transform)
         processed_dataset['val'].set_transform(test_transform)
@@ -112,7 +112,8 @@ if __name__ == '__main__':
     if args.base_model == "clip":
         model = CLIPwithLinearFusion(args.clip_model_name, 
                                  text_model_path=args.text_model_path,
-                                 num_labels=num_labels).to(device)
+                                 num_labels=num_labels,
+                                 device=device).to(device)
     elif args.base_model == "pmc-clip":
         model = PMC_CLIPforVQA(args.checkpoint, 
                             args.config, 
