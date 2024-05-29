@@ -35,12 +35,19 @@ if __name__ == '__main__':
     parser.add_argument("--checkpoint", type=str)
     parser.add_argument("--config", type=str, default="./modeling/pmc_clip/model_configs/RN50_fusion4.json")
     # ***** Trainer *****
+    parser.add_argument("--output_dir", type=str)
     parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--num_train_epochs", type=int, default=3)
     parser.add_argument("--report_to", type=str, nargs="+", default=["wandb"])
     # ***** Wandb ***** 
     parser.add_argument("--project", type=str, default="cs231n-medmcqa")
     args = parser.parse_args()
+
+    if not args.output_dir:
+        if args.base_model == "pmc-clip":
+            args.output_dir = f"pmc-clip_medmcqa"
+        else:
+            args.output_dir = f"{args.clip_model_name.split('/')[1]}_{args.task}"
 
     # 1. Load and preprocess dataset
     dataset = load_dataset(args.dataset)
