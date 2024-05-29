@@ -1,0 +1,111 @@
+"""
+    Fine-tune CLIP-based text models on MedMCQA dataset
+    posed as a multiple choice problem.
+"""
+import os 
+import argparse
+from pathlib import Path 
+import shutil
+
+from data_collator_multiple_choice import DataCollatorForMultipleChoice
+from modeling.modeling_clip_text_finetune import CLIPTextFinetunedModule, train
+import wandb
+import matplotlib.pyplot as plt
+import torch
+import torch.nn as nn
+from torch.utils.data import DataLoader
+from datasets import load_dataset
+from transformers import AutoTokenizer
+import torch.optim as optim
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+print("device:", device)
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+
+    # ***** Dataset *****
+    parser.add_argument("--dataset", default="openlifescienceai/medmcqa", type=str)
+    # ***** CLIP Model *****#
+    parser.add_argument("--clip_model_name", type=str, default="openai/clip-vit-base-patch32")
+    # ***** Trainer *****
+    parser.add_argument("--output_dir", type=str)
+    parser.add_argument("--batch_size", type=int, default=16)
+    parser.add_argument("--learning_rate", type=float, default=1e-6)
+    parser.add_argument("--num_train_epochs", type=int, default=3)
+    parser.add_argument("--report_to", type=str, nargs="+", default=["wandb"])
+    # ***** Wandb ***** 
+    parser.add_argument("--project", type=str, default="cs231n-medmcqa")
+    args = parser.parse_args()
+
+    if not args.output_dir:
+        args.output_dir = f"{args.clip_model_name.split('/')[1]}_{args.project}"
+
+    # 1. Load and preprocess dataset
+    dataset = load_dataset(args.dataset)
+    print(dataset)
+    tokenizer = AutoTokenizer.from_pretrained(args.clip_model_name, use_fast=True)
+    options = ["opa", "opb", "opc", "opd"]
+    max_token_length=77
+    def filter_too_long(example):
+        for option in options:
+            if len(tokenizer.encode(f"{example['question']} {example[option]}", truncation=False)) > max_token_length:
+                return False
+            return True
+    # Filter the dataset
+    dataset["train"] = dataset["train"].filter(filter_too_long)
+    dataset["validation"] = dataset["validation"].filter(filter_too_long)
+    dataset["test"] = dataset["test"].filter(filter_too_long)
+    print(dataset)
+
+    """
+    Inspired by https://huggingface.co/docs/transformers/en/tasks/multiple_choice
+    """
+    def preprocess_function(examples):
+        # Repeat each first sentence four times to go with the four possibilities of second sentences.
+        # first_sentences = [[context] * 4 for context in examples["question"]]
+        first_sentences = [[f"{question} {examples[option][i]}" for option in options] for i, question in enumerate(examples["question"])]
+
+        # Flatten everything
+        first_sentences = sum(first_sentences, [])
+        # second_sentences = sum(second_sentences, [])
+
+        # Tokenize
+        tokenized_examples = tokenizer(first_sentences, truncation=True, max_length=max_token_length, padding="max_length")
+        # Un-flatten
+        return {k: [v[i:i+4] for i in range(0, len(v), 4)] for k, v in tokenized_examples.items()}
+    dataset = dataset.map(preprocess_function, batched=True)
+    dataset = dataset.rename_column("cop", "label")
+
+    data_collator = DataCollatorForMultipleChoice(tokenizer)
+
+    # Set the format to PyTorch tensors
+    dataset.set_format(type='torch', columns=['label', 'input_ids', 'attention_mask'])
+
+    # Create a DataLoader
+    loader_train = DataLoader(dataset['train'], batch_size=args.batch_size, collate_fn=data_collator)
+    loader_val = DataLoader(dataset['validation'], batch_size=args.batch_size, collate_fn=data_collator)
+
+    # 2. Init and train model
+    learning_rates = [5e-6]
+    weight_decay = [1e-1]
+
+    for lr in learning_rates:
+        for wd in weight_decay:
+            print(f"lr = {lr}, wd = {wd}")
+            epoch = args.num_train_epochs
+            # 🐝 initialise a wandb run
+            wandb.init(
+                project=args.project,
+                name=f"lr = {lr}, wd = {wd}",
+                config={
+                    "epochs": epoch,
+                    "batch_size": args.batch_size,
+                    "lr": lr,
+                    "wd": wd
+                })
+            model = CLIPTextFinetunedModule(args.clip_model_name)
+            optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
+            train(args, model, loader_train, loader_val, optimizer, device, wandb, epochs=epoch, print_every=1000, lr=lr, wd=wd)
+            wandb.finish()
