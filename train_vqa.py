@@ -6,6 +6,7 @@ import os
 import argparse
 from pathlib import Path 
 import shutil
+import pickle
 
 import wandb
 import matplotlib.pyplot as plt
@@ -28,7 +29,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # ***** Dataset *****
-    parser.add_argument("--dataset", default="flaviagiammarino/vqa-rad", type=str)
+    parser.add_argument("--dataset", default="cs231n-Medco/vqa-rad", type=str)
     parser.add_argument("--task", default="binary", choices=["binary", "multiclass"])
     parser.add_argument("--seed", type=int, default=123, help="Seed for train/val split.")
     # ***** Model ***** 
@@ -62,20 +63,34 @@ if __name__ == '__main__':
 
     # 1. Preprocess dataset
     dataset = load_dataset(args.dataset)
+
+    if args.task == "binary":
+        dataset = dataset.filter(lambda example: example["answer"].lower() in ("yes", "no"))
+
+        def preprocess_labels_yesno(batch):
+            batch["labels"] = [1 if answer.lower() == "yes" else 0 for answer in batch["answer"]]
+            return batch 
+        dataset = dataset.map(preprocess_labels_yesno, batched=True)
+    
+    elif args.task == "multiclass":
+        assert args.dataset == "cs231n-Medco/vqa-rad" # the dataset should be preprocessed from  https://github.com/aioz-ai/MICCAI21_MMQ?tab=readme-ov-file#vqa-rad-dataset-for-vqa-task
+        dataset = dataset.sort("qid")
+        
+        train_target = pickle.load(open("./data/cache/train_target.pkl", "rb"))
+        qid2label = {x['qid']: x['labels'][0] for x in train_target}
+        assert dataset['train']['qid'] == list(qid2label.keys())
+        dataset['train'] = dataset['train'].add_column("labels", list(qid2label.values()))
+
+        test_target = pickle.load(open("./data/cache/test_target.pkl", "rb"))
+        qid2label = {x['qid']: x['labels'][0] if len(x['labels']) > 0 else None for x in test_target}
+        assert dataset['test']['qid'] == list(qid2label.keys())
+        dataset['test'] = dataset['test'].add_column("labels", list(qid2label.values()))
+        dataset['test'] = dataset['test'].filter(lambda example: example['labels'] is not None)
+
     train_val_dataset = dataset["train"].train_test_split(test_size=0.125, seed=args.seed)
     train_val_test_dataset = DatasetDict({'train': train_val_dataset['train'],
                                         'val': train_val_dataset['test'],
                                         'test': dataset['test']})
-    if args.task == "binary":
-        train_val_test_dataset = train_val_test_dataset.filter(lambda example: example["answer"].lower() in ("yes", "no"))
-
-    def preprocess_labels(batch):
-        if args.task == "binary":
-            batch["labels"] = [1 if answer.lower() == "yes" else 0 for answer in batch["answer"]]
-        else: # "multiclass"
-            raise NotImplementedError
-        return batch 
-    train_val_test_dataset = train_val_test_dataset.map(preprocess_labels, batched=True)
 
     image_processor = CLIPImageProcessor.from_pretrained(args.clip_model_name)
     tokenizer = AutoTokenizer.from_pretrained(args.clip_model_name)
@@ -105,10 +120,8 @@ if __name__ == '__main__':
         processed_dataset['val'].set_transform(test_transform)
         processed_dataset['test'].set_transform(test_transform)
     
-
-    
     # 2. Init model
-    num_labels = 2 if args.task == "binary" else 458 # num of distinct answers in the train set
+    num_labels = 2 if args.task == "binary" else 458 # num of labels in trainval_label2ans.pkl
     if args.base_model == "clip":
         model = CLIPwithLinearFusion(args.clip_model_name, 
                                  text_model_path=args.text_model_path,
