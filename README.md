@@ -10,6 +10,8 @@ CS 231N Final Project
     - CLIP + linear fusion
         ```
         python train_vqa.py \
+        --dataset cs231n-Medco/vqa-rad \
+        --task ["yesno" or "all"] \
         --base_model clip \
         --text_model_path [(optional) path_to_text_model_checkpoint] \
         --clip_model_name flaviagiammarino/pubmed-clip-vit-base-patch32 \
@@ -24,6 +26,8 @@ CS 231N Final Project
         - Download checkpoint from [pmc_oa_beta](https://huggingface.co/datasets/axiong/pmc_oa_beta/blob/main/checkpoint.pt)
         ```
         python train_vqa.py \
+        --dataset cs231n-Medco/vqa-rad \
+        --task ["yesno" or "all"] \
         --base_model pmc-clip \
         --text_model_path [(optional) path_to_text_model_checkpoint] \
         --checkpoint path_to_pmc-clip_checkpoint \
