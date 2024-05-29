@@ -47,7 +47,7 @@ if __name__ == '__main__':
         if args.base_model == "pmc-clip":
             args.output_dir = f"pmc-clip_medmcqa"
         else:
-            args.output_dir = f"{args.clip_model_name.split('/')[1]}_{args.task}"
+            args.output_dir = f"{args.clip_model_name.split('/')[1]}_medmcqa"
 
     # 1. Load and preprocess dataset
     dataset = load_dataset(args.dataset)
