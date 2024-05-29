@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     # ***** Dataset *****
     parser.add_argument("--dataset", default="cs231n-Medco/vqa-rad", type=str)
-    parser.add_argument("--task", default="binary", choices=["binary", "multiclass"])
+    parser.add_argument("--task", default="binary", choices=["yesno", "all"])
     parser.add_argument("--seed", type=int, default=123, help="Seed for train/val split.")
     # ***** Model ***** 
     parser.add_argument("--base_model", type=str, choices=["clip", "pmc-clip"])
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     # 1. Preprocess dataset
     dataset = load_dataset(args.dataset)
 
-    if args.task == "binary":
+    if args.task == "yesno":
         dataset = dataset.filter(lambda example: example["answer"].lower() in ("yes", "no"))
 
         def preprocess_labels_yesno(batch):
@@ -72,7 +72,7 @@ if __name__ == '__main__':
             return batch 
         dataset = dataset.map(preprocess_labels_yesno, batched=True)
     
-    elif args.task == "multiclass":
+    elif args.task == "all":
         assert args.dataset == "cs231n-Medco/vqa-rad" # the dataset should be preprocessed from  https://github.com/aioz-ai/MICCAI21_MMQ?tab=readme-ov-file#vqa-rad-dataset-for-vqa-task
         dataset = dataset.sort("qid")
         
@@ -121,7 +121,7 @@ if __name__ == '__main__':
         processed_dataset['test'].set_transform(test_transform)
     
     # 2. Init model
-    num_labels = 2 if args.task == "binary" else 458 # num of labels in trainval_label2ans.pkl
+    num_labels = 2 if args.task == "yesno" else 458 # num of labels in trainval_label2ans.pkl
     if args.base_model == "clip":
         model = CLIPwithLinearFusion(args.clip_model_name, 
                                  text_model_path=args.text_model_path,
