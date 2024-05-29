@@ -10,6 +10,7 @@ import pickle
 
 import wandb
 import matplotlib.pyplot as plt
+import numpy as np
 import torch
 import torch.nn as nn
 from datasets import load_dataset, DatasetDict
@@ -163,7 +164,7 @@ if __name__ == '__main__':
             predictions = logits > 0.5
         else:
             # multi class classification
-            predictions = torch.argmax(logits, dim=1)
+            predictions = np.argmax(logits, axis=1)
         accuracy = (predictions == labels).mean()
         return {"accuracy": accuracy}
     
