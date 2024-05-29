@@ -6,9 +6,10 @@ import os
 import argparse
 from pathlib import Path 
 import shutil
+import json
 
 from data_collator_multiple_choice import DataCollatorForMultipleChoice
-from modeling.modeling_clip_text_finetune import CLIPTextFinetunedModule, train
+from modeling.modeling_clip_text_finetune import CLIPTextFinetunedModule, PMC_CLIPTextFinetunedModule, train
 import wandb
 import matplotlib.pyplot as plt
 import torch
@@ -27,27 +28,36 @@ if __name__ == '__main__':
 
     # ***** Dataset *****
     parser.add_argument("--dataset", default="openlifescienceai/medmcqa", type=str)
-    # ***** CLIP Model *****#
+    # ***** Model *****
     parser.add_argument("--clip_model_name", type=str, default="openai/clip-vit-base-patch32")
+    parser.add_argument("--base_model", type=str, choices=["clip", "pmc-clip"])
+    # ***** PMC-CLIP *****
+    parser.add_argument("--checkpoint", type=str)
+    parser.add_argument("--config", type=str, default="./modeling/pmc_clip/model_configs/RN50_fusion4.json")
     # ***** Trainer *****
-    parser.add_argument("--output_dir", type=str)
     parser.add_argument("--batch_size", type=int, default=16)
-    parser.add_argument("--learning_rate", type=float, default=1e-6)
     parser.add_argument("--num_train_epochs", type=int, default=3)
     parser.add_argument("--report_to", type=str, nargs="+", default=["wandb"])
     # ***** Wandb ***** 
     parser.add_argument("--project", type=str, default="cs231n-medmcqa")
     args = parser.parse_args()
 
-    if not args.output_dir:
-        args.output_dir = f"{args.clip_model_name.split('/')[1]}_{args.project}"
-
     # 1. Load and preprocess dataset
     dataset = load_dataset(args.dataset)
     print(dataset)
-    tokenizer = AutoTokenizer.from_pretrained(args.clip_model_name, use_fast=True)
+    
+    if args.base_model == "clip":
+        tokenizer = AutoTokenizer.from_pretrained(args.clip_model_name, use_fast=True)
+        max_token_length=77
+    elif args.base_model == "pmc-clip":
+        model_config = json.load(open(args.config))
+        tokenizer_name = model_config['text_cfg']['bert_model_name']
+        assert tokenizer_name == 'microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext', \
+            "Please check [CLS]'s token id"
+        tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
+        max_token_length=512
+
     options = ["opa", "opb", "opc", "opd"]
-    max_token_length=77
     def filter_too_long(example):
         for option in options:
             if len(tokenizer.encode(f"{example['question']} {example[option]}", truncation=False)) > max_token_length:
@@ -105,7 +115,12 @@ if __name__ == '__main__':
                     "lr": lr,
                     "wd": wd
                 })
-            model = CLIPTextFinetunedModule(args.clip_model_name)
+            if args.base_model == "clip":
+                model = CLIPTextFinetunedModule(args.clip_model_name).to(device)
+            elif args.base_model == "pmc-clip":
+                model = PMC_CLIPTextFinetunedModule(args.checkpoint, 
+                                    args.config, 
+                                    device=device).to(device) 
             optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
             train(args, model, loader_train, loader_val, optimizer, device, wandb, epochs=epoch, print_every=1000, lr=lr, wd=wd)
             wandb.finish()
