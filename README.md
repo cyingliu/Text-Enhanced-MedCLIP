@@ -22,6 +22,13 @@ CS 231N Final Project
         --save_steps 50 \
         --load_best_model_at_end
         ```
+        - clip
+          - ```--clip_model_name```: openai/clip-vit-base-patch32
+          - ```--text_model_path```: new_clip_MedMCQA_lr-5e-06-wd-0.1-epoch-2-shuffled.pth
+
+        - pubmedclip
+          - ```clip_model_name```: flaviagiammarino/pubmed-clip-vit-base-patch32
+          - ```text_model_path```: pub_med_clip_MedMCQA_lr-5e-06-wd-0.1-epoch-3-shuffled.pth
     - PMC-CLIP (pre-trained self-attention fusion)
         - Download checkpoint from [pmc_oa_beta](https://huggingface.co/datasets/axiong/pmc_oa_beta/blob/main/checkpoint.pt)
         ```
