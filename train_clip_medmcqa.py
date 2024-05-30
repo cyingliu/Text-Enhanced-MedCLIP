@@ -55,15 +55,14 @@ if __name__ == '__main__':
     
     if args.base_model == "clip":
         tokenizer = AutoTokenizer.from_pretrained(args.clip_model_name, use_fast=True)
-        max_token_length=77
     elif args.base_model == "pmc-clip":
         model_config = json.load(open(args.config))
         tokenizer_name = model_config['text_cfg']['bert_model_name']
         assert tokenizer_name == 'microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract-fulltext', \
             "Please check [CLS]'s token id"
         tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
-        max_token_length=512
 
+    max_token_length=77
     options = ["opa", "opb", "opc", "opd"]
     def filter_too_long(example):
         for option in options:
