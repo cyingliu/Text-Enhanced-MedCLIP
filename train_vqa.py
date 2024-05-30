@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     # ***** Dataset *****
     parser.add_argument("--dataset", default="cs231n-Medco/vqa-rad", type=str)
-    parser.add_argument("--task", default="binary", choices=["yesno", "all"])
+    parser.add_argument("--task", default="yesno", choices=["yesno", "all"])
     parser.add_argument("--seed", type=int, default=123, help="Seed for train/val split.")
     # ***** Model ***** 
     parser.add_argument("--base_model", type=str, choices=["clip", "pmc-clip"])
@@ -116,7 +116,9 @@ if __name__ == '__main__':
     processed_dataset = train_val_test_dataset.map(preprocess_fn, batched=True)
     if args.task == 'all':
         processed_dataset['test-yesno'] = processed_dataset['test'].filter(lambda example: example['answer'].strip().lower() == 'yes' or example['answer'].strip().lower() == 'no')
+        processed_dataset['test-nonyesno'] = processed_dataset['test'].filter(lambda example: example['answer'].strip().lower() != 'yes' and example['answer'].strip().lower() != 'no')
         processed_dataset['test-closed'] = processed_dataset['test'].filter(lambda example: example['answer_type'].strip().lower() == 'closed')
+        processed_dataset['test-open'] = processed_dataset['test'].filter(lambda example: example['answer_type'].strip().lower() == 'open')
     
     if args.base_model == "pmc-clip":
         processed_dataset['train'].set_transform(train_transform)
@@ -124,7 +126,9 @@ if __name__ == '__main__':
         processed_dataset['test'].set_transform(test_transform)
         if args.task == 'all':
             processed_dataset['test-yesno'].set_transform(test_transform)
+            processed_dataset['test-nonyesno'].set_transform(test_transform)
             processed_dataset['test-closed'].set_transform(test_transform)
+            processed_dataset['test-open'].set_transform(test_transform)
 
     processed_dataset = processed_dataset.select_columns(select_columns)
 
@@ -208,7 +212,7 @@ if __name__ == '__main__':
     print(f"Test accuracy: {test_results['eval_accuracy']}")
 
     if args.task == 'all':
-        splits = ['test-yesno', 'test-closed']
+        splits = ['test-yesno', 'test-nonyesno', 'test-closed', 'test-open']
         for split in splits:
             test_results = trainer.evaluate(processed_dataset[split])
             print(f"{split} accuracy: {test_results['eval_accuracy']}")
