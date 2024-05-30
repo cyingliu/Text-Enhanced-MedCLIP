@@ -1,5 +1,5 @@
 """This script de-duplicates the data provided by the VQA-RAD authors,
-creates an "imagefolder" dataset and pushes it to the Hugging Face Hub.
+creates a dataset and pushes it to the Hugging Face Hub.
 
 Modified from https://huggingface.co/datasets/flaviagiammarino/vqa-rad/blob/main/scripts/processing.py.
 """
