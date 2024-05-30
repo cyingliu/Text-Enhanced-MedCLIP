@@ -12,8 +12,8 @@ import pandas as pd
 from datasets import load_dataset
 
 # load the data
-# train.jsonl is in JSON lines format, converted from trainset.json which is in Multiline JSON format
-# test.jsonl is in JSON lines format, converted from testset.json which is in Multiline JSON format
+# `trainset.json` and `testset.json` are from the above [link](https://github.com/aioz-ai/MICCAI21_MMQ?tab=readme-ov-file#vqa-rad-dataset-for-vqa-task). They are in MultiLine JSON format. 
+# We converted them into JSON lines format, named `train.jsonl` and `test.jsonl`.
 train_data = pd.read_json("train.jsonl", lines=True)
 test_data = pd.read_json("test.jsonl", lines=True)
 
