@@ -114,13 +114,20 @@ if __name__ == '__main__':
         select_columns = ['image', 'labels', 'bert_input', 'bert_label']
 
     processed_dataset = train_val_test_dataset.map(preprocess_fn, batched=True)
-    processed_dataset = processed_dataset.select_columns(select_columns)
+    if args.task == 'all':
+        processed_dataset['test-yesno'] = processed_dataset['test'].filter(lambda example: example['answer'].strip().lower() == 'yes' or example['answer'].strip().lower() == 'no')
+        processed_dataset['test-closed'] = processed_dataset['test'].filter(lambda example: example['answer_type'].strip().lower() == 'closed')
     
     if args.base_model == "pmc-clip":
         processed_dataset['train'].set_transform(train_transform)
         processed_dataset['val'].set_transform(test_transform)
         processed_dataset['test'].set_transform(test_transform)
-    
+        if args.task == 'all':
+            processed_dataset['test-yesno'].set_transform(test_transform)
+            processed_dataset['test-closed'].set_transform(test_transform)
+
+    processed_dataset = processed_dataset.select_columns(select_columns)
+
     # 2. Init model
     num_labels = 2 if args.task == "yesno" else 458 # num of labels in trainval_label2ans.pkl
     if args.base_model == "clip":
@@ -199,5 +206,11 @@ if __name__ == '__main__':
     print("Evaluating on test dataset ...")
     test_results = trainer.evaluate(processed_dataset["test"])
     print(f"Test accuracy: {test_results['eval_accuracy']}")
+
+    if args.task == 'all':
+        splits = ['test-yesno', 'test-closed']
+        for split in splits:
+            test_results = trainer.evaluate(processed_dataset[split])
+            print(f"{split} accuracy: {test_results['eval_accuracy']}")
 
     wandb.finish()
