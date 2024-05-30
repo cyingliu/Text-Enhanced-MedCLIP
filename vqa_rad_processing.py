@@ -1,4 +1,4 @@
-"""This script de-duplicates the data provided by the VQA-RAD authors,
+"""This script de-duplicates the data from this [link](https://github.com/aioz-ai/MICCAI21_MMQ?tab=readme-ov-file#vqa-rad-dataset-for-vqa-task),
 creates a dataset and pushes it to the Hugging Face Hub.
 
 Modified from https://huggingface.co/datasets/flaviagiammarino/vqa-rad/blob/main/scripts/processing.py.
