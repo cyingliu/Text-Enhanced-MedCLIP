@@ -1,0 +1,409 @@
+qid,gt,pred_label,pred_sent
+11,0,1,no
+13,0,1,no
+14,0,0,yes
+22,0,1,no
+24,0,1,no
+32,0,0,yes
+34,0,0,yes
+36,1,1,no
+38,1,1,no
+40,1,1,no
+42,1,0,yes
+46,0,0,yes
+47,0,0,yes
+49,0,0,yes
+86,0,0,yes
+87,0,0,yes
+121,0,0,yes
+123,0,0,yes
+158,1,1,no
+160,1,1,no
+162,0,0,yes
+164,0,0,yes
+178,0,0,yes
+180,0,0,yes
+186,1,1,no
+188,1,1,no
+198,0,0,yes
+200,0,0,yes
+222,0,1,no
+224,0,0,yes
+239,0,1,no
+241,0,1,no
+269,1,0,yes
+271,1,0,yes
+275,0,0,yes
+277,0,0,yes
+298,1,0,yes
+300,1,0,yes
+302,12,0,yes
+304,12,51,right superior cavoatrial junction
+306,13,211,stomach bubble
+308,13,211,stomach bubble
+310,0,1,no
+319,14,308,short section irregular contour
+321,14,276,on left
+335,0,1,no
+393,55,10,axial
+401,32,1,no
+402,32,32,1
+413,30,263,fatty infiltration
+414,30,19,pancreas
+415,34,34,nodular opacities
+417,34,266,nodules
+423,1,1,no
+425,1,1,no
+427,37,37,ring enhancing lesions
+429,0,0,yes
+431,38,38,right temporal lobe
+433,38,232,retrocardiac
+458,43,43,middle mogul
+460,43,43,middle mogul
+462,43,43,middle mogul
+470,44,40,right
+472,44,82,left
+475,0,1,no
+485,0,0,yes
+487,0,0,yes
+493,1,1,no
+495,1,1,no
+503,93,9,chest xray
+513,1,1,no
+522,1,0,yes
+524,1,1,no
+531,0,1,no
+532,1,1,no
+557,1,1,no
+571,32,32,1
+573,1,1,no
+595,82,82,left
+596,82,82,left
+598,0,0,yes
+600,1,1,no
+606,1,1,no
+608,69,69,it is less than half width of thorax
+610,1,1,no
+612,1,1,no
+629,0,0,yes
+631,75,40,right
+633,0,0,yes
+648,80,80,posterior to appendix
+663,0,0,yes
+709,90,90,on right shoulder
+711,0,1,no
+713,1,0,yes
+718,92,292,midline
+720,1,1,no
+722,86,86,anterior mediastinum
+724,40,82,left
+726,94,40,right
+728,1,0,yes
+733,82,82,left
+734,82,401,quadrantopia aphasia memory deficit etc
+750,1,0,yes
+751,0,0,yes
+759,1,1,no
+763,1,1,no
+773,307,9,chest xray
+787,1,1,no
+790,1,1,no
+797,1,1,no
+809,10,10,axial
+811,1,1,no
+814,1,1,no
+821,1,1,no
+830,114,0,yes
+832,114,0,yes
+840,1,1,no
+842,1,1,no
+874,1,1,no
+900,0,0,yes
+906,0,0,yes
+908,0,0,yes
+910,0,0,yes
+912,0,0,yes
+918,123,123,fat
+920,123,123,fat
+925,1,1,no
+926,1,1,no
+946,1,1,no
+948,1,1,no
+950,1,1,no
+951,1,0,yes
+979,0,0,yes
+981,0,0,yes
+983,0,0,yes
+985,0,0,yes
+989,0,0,yes
+991,0,0,yes
+1007,0,0,yes
+1009,0,1,no
+1011,1,1,no
+1013,1,1,no
+1046,0,0,yes
+1048,0,0,yes
+1050,130,0,yes
+1052,130,346,right sided pleural effusion
+1080,0,0,yes
+1082,0,0,yes
+1108,20,20,right upper lobe
+1110,20,20,right upper lobe
+1116,0,0,yes
+1118,0,0,yes
+1132,135,10,axial
+1175,140,140,head of pancreas
+1177,140,53,suprasellar cistern
+1205,104,104,right frontal lobe
+1209,1,0,yes
+1210,1,1,no
+1238,235,18,ct
+1259,0,0,yes
+1265,152,152,abdomen
+1266,1,0,yes
+1268,1,1,no
+1273,1,0,yes
+1280,40,40,right
+1282,40,40,right
+1284,166,0,yes
+1286,166,0,yes
+1307,0,0,yes
+1309,0,0,yes
+1311,82,40,right
+1312,82,40,right
+1330,10,10,axial
+1348,63,1,no
+1350,63,63,right side
+1375,0,0,yes
+1377,0,0,yes
+1379,0,1,no
+1384,175,24,bilateral
+1386,175,24,bilateral
+1393,0,0,yes
+1395,0,0,yes
+1409,0,0,yes
+1456,1,0,yes
+1461,337,188,t2 weighted
+1466,10,10,axial
+1467,10,10,axial
+1476,185,230,abdomen and pelvis
+1478,185,158,left occipital lobe
+1480,186,186,3.4 cm
+1482,186,0,yes
+1492,116,1,no
+1493,116,116,female
+1500,1,1,no
+1502,1,1,no
+1506,0,1,no
+1507,8,28,chest
+1512,189,0,yes
+1514,189,0,yes
+1529,192,192,basilar artery
+1531,192,192,basilar artery
+1540,1,0,yes
+1542,1,1,no
+1548,1,0,yes
+1549,48,48,right hemisphere
+1551,48,66,kidneys
+1578,196,38,right temporal lobe
+1580,196,158,left occipital lobe
+1616,1,1,no
+1618,1,1,no
+1622,199,199,hydrocephalus
+1624,199,199,hydrocephalus
+1626,8,8,brain
+1627,18,184,with contrast
+1628,18,93,xray
+1630,20,133,mass
+1632,20,0,yes
+1651,93,191,pa xray
+1652,200,44,right lung
+1654,201,44,right lung
+1678,1,1,no
+1680,1,1,no
+1686,0,0,yes
+1688,0,1,no
+1701,203,457,nucleus pulposus
+1703,0,0,yes
+1721,116,1,no
+1722,116,1,no
+1736,1,0,yes
+1738,0,0,yes
+1753,1,1,no
+1755,1,1,no
+1758,109,211,stomach bubble
+1768,0,1,no
+1781,1,1,no
+1783,1,1,no
+1810,218,165,bowel contents light up on image
+1812,218,202,left cerebellum
+1850,1,1,no
+1851,1,1,no
+1853,219,1,no
+1867,0,1,no
+1872,40,40,right
+1874,40,40,right
+1884,204,204,ribs
+1886,204,204,ribs
+1888,1,1,no
+1890,1,1,no
+1892,1,1,no
+1894,1,1,no
+1910,1,1,no
+1912,1,1,no
+1930,1,1,no
+1932,1,1,no
+1943,0,1,no
+1945,0,0,yes
+1951,1,0,yes
+1968,0,0,yes
+1982,10,10,axial
+2001,231,231,lateral and third ventricular hydrocephalus
+2003,231,1,no
+2005,1,1,no
+2007,1,1,no
+2035,1,1,no
+2037,1,0,yes
+2043,1,1,no
+2045,1,1,no
+2082,0,0,yes
+2084,0,0,yes
+2094,245,0,yes
+2096,245,346,right sided pleural effusion
+2121,10,10,axial
+2135,0,0,yes
+2137,0,0,yes
+2143,39,0,yes
+2144,0,0,yes
+2158,0,0,yes
+2160,0,0,yes
+2166,253,253,left aca and mca
+2168,253,253,left aca and mca
+2185,8,8,brain
+2187,254,113,scoliosis
+2203,1,1,no
+2205,1,1,no
+2223,8,8,brain
+2224,8,55,pa
+2226,260,446,well circumscribed
+2228,260,0,yes
+2254,1,1,no
+2256,1,1,no
+2257,1,1,no
+2259,1,1,no
+2261,1,1,no
+2263,1,1,no
+2268,10,184,with contrast
+2269,10,10,axial
+2311,0,1,no
+2313,0,0,yes
+2318,1,1,no
+2320,1,1,no
+2328,28,8,brain
+2333,1,1,no
+2335,1,1,no
+2349,0,1,no
+2352,144,144,4th ventricle
+2369,1,0,yes
+2371,0,1,no
+2372,0,0,yes
+2377,1,1,no
+2381,1,1,no
+2383,1,1,no
+2406,1,1,no
+2408,1,0,yes
+2420,0,0,yes
+2425,283,246,micronodular
+2428,0,259,hemorrhage
+2430,0,0,yes
+2448,1,0,yes
+2452,1,1,no
+2458,40,236,blind loop syndrome
+2465,0,0,yes
+2475,0,0,yes
+2479,0,1,no
+2481,290,166,ivc
+2509,1,1,no
+2515,0,0,yes
+2520,1,1,no
+2524,1,1,no
+2538,0,1,no
+2545,0,1,no
+2546,0,1,no
+2552,86,53,suprasellar cistern
+2554,299,0,yes
+2563,1,1,no
+2568,1,1,no
+2581,300,282,5cm
+2586,0,0,yes
+2592,1,1,no
+2594,0,1,no
+2596,1,1,no
+2598,0,0,yes
+2600,10,10,axial
+2607,1,1,no
+2617,235,235,mri
+2623,303,49,right pca
+2627,304,17,diffuse
+2632,1,1,no
+2642,1,1,no
+2652,0,1,no
+2660,1,1,no
+2662,309,82,left
+2682,0,0,yes
+2702,1,1,no
+2710,1,1,no
+2714,1,0,yes
+2716,18,18,ct
+2721,0,1,no
+2724,1,0,yes
+2726,1,1,no
+2731,1,0,yes
+2735,63,82,left
+2741,315,0,yes
+2745,1,1,no
+2752,317,280,6.5 x 6.2 x 8.8cm
+2770,71,1,no
+2771,24,1,no
+2788,0,0,yes
+2790,0,1,no
+2817,0,1,no
+2818,0,0,yes
+2821,311,311,stomach
+2823,311,311,stomach
+2834,0,0,yes
+2837,0,0,yes
+2839,0,0,yes
+2845,1,0,yes
+2878,334,0,yes
+2880,334,89,right lobe
+2902,10,0,yes
+2903,10,324,flair
+2904,0,0,yes
+2905,0,0,yes
+2938,324,324,flair
+2939,173,18,ct
+2940,339,339,calcified atherosclerosis
+2942,339,339,calcified atherosclerosis
+2949,0,0,yes
+2952,0,0,yes
+2954,0,0,yes
+2970,188,341,right subdural hematoma
+2987,343,341,right subdural hematoma
+2989,343,313,in bowel
+3001,1,1,no
+3003,1,0,yes
+3015,347,310,hydropneumothorax
+3017,347,0,yes
+3026,235,18,ct
+3027,235,0,yes
+3030,10,10,axial
+3055,1,1,no
+3057,1,1,no
+3059,1,1,no
+3061,1,0,yes
+3084,356,356,proximal aspect of appendix
+3086,356,82,left
+3132,0,1,no
+3136,1,1,no
+3138,1,1,no

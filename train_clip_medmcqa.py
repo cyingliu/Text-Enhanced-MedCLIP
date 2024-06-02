@@ -88,7 +88,7 @@ if __name__ == '__main__':
         # second_sentences = sum(second_sentences, [])
 
         # Tokenize
-        tokenized_examples = tokenizer(first_sentences, truncation=True, max_length=max_token_length, padding="max_length")
+        tokenized_examples = tokenizer(first_sentences, truncation=True, max_length=max_token_length)
         # Un-flatten
         return {k: [v[i:i+4] for i in range(0, len(v), 4)] for k, v in tokenized_examples.items()}
     dataset = dataset.map(preprocess_function, batched=True)

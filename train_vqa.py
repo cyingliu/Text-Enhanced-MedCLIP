@@ -8,6 +8,8 @@ from pathlib import Path
 import shutil
 import pickle
 
+from modeling.transformer_decoder import VqaTransformerDecoder
+from modeling.transformer_encoder import VqaTransformerEncoder
 import wandb
 import matplotlib.pyplot as plt
 import numpy as np
@@ -42,6 +44,9 @@ if __name__ == '__main__':
     parser.add_argument("--checkpoint", type=str)
     parser.add_argument("--config", type=str, default="./modeling/pmc_clip/model_configs/RN50_fusion4.json")
     parser.add_argument("--pool_type", type=str, default="average", choices=["average", "cls"])
+    # **** CLIP with Transformer Fusion ****
+    parser.add_argument("--transformer_fusion", type=str, choices=["decoder", "encoder", "none"], default="none")
+    parser.add_argument("--transformer_num_layers", type=int, default=2)
     # ***** Trainer *****
     parser.add_argument("--output_dir", type=str)
     parser.add_argument("--batch_size", type=int, default=8)
@@ -135,10 +140,21 @@ if __name__ == '__main__':
     # 2. Init model
     num_labels = 2 if args.task == "yesno" else 458 # num of labels in trainval_label2ans.pkl
     if args.base_model == "clip":
-        model = CLIPwithLinearFusion(args.clip_model_name, 
+        if args.transformer_fusion == "none":
+            model = CLIPwithLinearFusion(args.clip_model_name, 
+                                    text_model_path=args.text_model_path,
+                                    num_labels=num_labels,
+                                    device=device).to(device)
+        elif args.transformer_fusion == "decoder":
+            model = VqaTransformerDecoder(args.clip_model_name, 
                                  text_model_path=args.text_model_path,
                                  num_labels=num_labels,
-                                 device=device).to(device)
+                                 num_layers=args.transformer_num_layers).to(device)
+        elif args.transformer_fusion == "encoder":
+            model = VqaTransformerEncoder(args.clip_model_name, 
+                                 text_model_path=args.text_model_path,
+                                 num_labels=num_labels,
+                                 num_layers=args.transformer_num_layers).to(device)
     elif args.base_model == "pmc-clip":
         model = PMC_CLIPforVQA(args.checkpoint, 
                             args.config, 
