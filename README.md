@@ -47,4 +47,18 @@ CS 231N Final Project
         --save_steps 50 \
         --load_best_model_at_end
         ```
+  - Inference
+    - Run inference on test dataset.
+    - Output a .csv file containing qid, ground truth label, predicted label, predicted answer of each test example.
+    - Calculate accuracy on closed/open/yesno/non-yesno subsets if specified.
+    ```
+    python inference_vqa.py \
+    --dataset "cs231n-Medco/vqa-rad" \
+    --task all \
+    --base_model “clip” or “pmc-clip” \
+    --checkpoint  path_to_checkpoint \
+    --output path_to_output_csv_file \
+    --splits (optional) [‘test-yesno’, ‘test-nonyesno’, ‘test-closed’, ‘test-open’] \
+    -- other model related arguments same as training
+    ```
         
