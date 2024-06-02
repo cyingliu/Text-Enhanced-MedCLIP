@@ -49,7 +49,7 @@ CS 231N Final Project
         ```
   - Inference
     - Run inference on test dataset.
-    - Output a .csv file containing qid, ground truth label, predicted label, predicted answer of each test example.
+    - Output a .csv file containing qid, ground truth label, predicted label, and predicted answer of each test example.
     - Calculate accuracy on closed/open/yesno/non-yesno subsets if specified.
     ```
     python inference_vqa.py \
