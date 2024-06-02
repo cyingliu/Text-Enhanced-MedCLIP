@@ -54,11 +54,11 @@ CS 231N Final Project
     ```
     python inference_vqa.py \
     --dataset "cs231n-Medco/vqa-rad" \
-    --task all \
+    --task "binary" or "all" \
     --base_model “clip” or “pmc-clip” \
     --checkpoint  path_to_checkpoint \
     --output path_to_output_csv_file \
-    --splits (optional) [‘test-yesno’, ‘test-nonyesno’, ‘test-closed’, ‘test-open’] \
+    --splits (optional) ["test-yesno", "test-nonyesno", "test-closed", "test-open"] \
     -- other model related arguments same as training
     ```
         
