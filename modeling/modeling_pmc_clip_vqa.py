@@ -41,11 +41,11 @@ class PMC_CLIPforVQA(nn.Module):
             del sd["text_encoder.embeddings.position_ids"]
         self.base_model.load_state_dict(sd)
         self.cls_id = self.base_model.tokenizer.cls_token_id
-        
+
         if text_model_path:
-            print("Load text model weight from:", text_model_path)
+            print("Load text model weight from:", text_model_path) # this weights contains the whole pmc-clip weight in the "base_model" attribute
             text_model_dict = torch.load(text_model_path, map_location=device)
-            text_model_dict = {k: v for k, v in text_model_dict.items() if k.startswith("text_model")}
+            text_model_dict = {k[len("base_model."):]: v for k, v in text_model_dict.items() if "text_encoder" in k}
             base_model_dict = self.base_model.state_dict()
             base_model_dict.update(text_model_dict)
             self.base_model.load_state_dict(base_model_dict)
