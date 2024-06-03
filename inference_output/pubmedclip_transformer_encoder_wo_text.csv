@@ -1,0 +1,409 @@
+qid,gt,pred_label,pred_sent
+11,0,1,no
+13,0,1,no
+14,0,0,yes
+22,0,0,yes
+24,0,1,no
+32,0,0,yes
+34,0,0,yes
+36,1,1,no
+38,1,1,no
+40,1,0,yes
+42,1,0,yes
+46,0,0,yes
+47,0,0,yes
+49,0,0,yes
+86,0,0,yes
+87,0,0,yes
+121,0,0,yes
+123,0,0,yes
+158,1,1,no
+160,1,1,no
+162,0,1,no
+164,0,1,no
+178,0,0,yes
+180,0,0,yes
+186,1,1,no
+188,1,1,no
+198,0,0,yes
+200,0,1,no
+222,0,1,no
+224,0,1,no
+239,0,0,yes
+241,0,1,no
+269,1,0,yes
+271,1,0,yes
+275,0,0,yes
+277,0,0,yes
+298,1,0,yes
+300,1,0,yes
+302,12,0,yes
+304,12,24,bilateral
+306,13,40,right
+308,13,40,right
+310,0,1,no
+319,14,368,partial silhouetting
+321,14,276,on left
+335,0,0,yes
+393,55,10,axial
+401,32,0,yes
+402,32,32,1
+413,30,19,pancreas
+414,30,19,pancreas
+415,34,34,nodular opacities
+417,34,215,l2
+423,1,1,no
+425,1,1,no
+427,37,37,ring enhancing lesions
+429,0,0,yes
+431,38,104,right frontal lobe
+433,38,232,retrocardiac
+458,43,43,middle mogul
+460,43,43,middle mogul
+462,43,43,middle mogul
+470,44,44,right lung
+472,44,44,right lung
+475,0,1,no
+485,0,0,yes
+487,0,0,yes
+493,1,0,yes
+495,1,1,no
+503,93,9,chest xray
+513,1,1,no
+522,1,0,yes
+524,1,1,no
+531,0,0,yes
+532,1,1,no
+557,1,1,no
+571,32,32,1
+573,1,1,no
+595,82,82,left
+596,82,82,left
+598,0,0,yes
+600,1,1,no
+606,1,1,no
+608,69,69,it is less than half width of thorax
+610,1,1,no
+612,1,1,no
+629,0,0,yes
+631,75,40,right
+633,0,0,yes
+648,80,80,posterior to appendix
+663,0,0,yes
+709,90,90,on right shoulder
+711,0,1,no
+713,1,0,yes
+718,92,82,left
+720,1,1,no
+722,86,86,anterior mediastinum
+724,40,82,left
+726,94,40,right
+728,1,0,yes
+733,82,64,left side
+734,82,70,left kidney
+750,1,1,no
+751,0,0,yes
+759,1,1,no
+763,1,1,no
+773,307,9,chest xray
+787,1,1,no
+790,1,1,no
+797,1,1,no
+809,10,10,axial
+811,1,1,no
+814,1,1,no
+821,1,1,no
+830,114,114,lateral ventricles
+832,114,114,lateral ventricles
+840,1,1,no
+842,1,0,yes
+874,1,1,no
+900,0,0,yes
+906,0,0,yes
+908,0,0,yes
+910,0,0,yes
+912,0,0,yes
+918,123,123,fat
+920,123,380,psoas muscles
+925,1,1,no
+926,1,1,no
+946,1,1,no
+948,1,1,no
+950,1,0,yes
+951,1,0,yes
+979,0,0,yes
+981,0,0,yes
+983,0,0,yes
+985,0,0,yes
+989,0,0,yes
+991,0,0,yes
+1007,0,0,yes
+1009,0,1,no
+1011,1,1,no
+1013,1,1,no
+1046,0,0,yes
+1048,0,1,no
+1050,130,130,cardiomegaly with pulmonary edema
+1052,130,346,right sided pleural effusion
+1080,0,0,yes
+1082,0,0,yes
+1108,20,20,right upper lobe
+1110,20,20,right upper lobe
+1116,0,0,yes
+1118,0,0,yes
+1132,135,10,axial
+1175,140,169,pineal gland
+1177,140,140,head of pancreas
+1205,104,104,right frontal lobe
+1209,1,0,yes
+1210,1,1,no
+1238,235,1,no
+1259,0,0,yes
+1265,152,152,abdomen
+1266,1,1,no
+1268,1,1,no
+1273,1,1,no
+1280,40,40,right
+1282,40,40,right
+1284,166,0,yes
+1286,166,166,ivc
+1307,0,0,yes
+1309,0,0,yes
+1311,82,40,right
+1312,82,40,right
+1330,10,10,axial
+1348,63,63,right side
+1350,63,63,right side
+1375,0,0,yes
+1377,0,0,yes
+1379,0,0,yes
+1384,175,175,r frontal lobe
+1386,175,24,bilateral
+1393,0,0,yes
+1395,0,0,yes
+1409,0,0,yes
+1456,1,0,yes
+1461,337,188,t2 weighted
+1466,10,10,axial
+1467,10,10,axial
+1476,185,230,abdomen and pelvis
+1478,185,158,left occipital lobe
+1480,186,282,5cm
+1482,186,0,yes
+1492,116,1,no
+1493,116,1,no
+1500,1,1,no
+1502,1,1,no
+1506,0,1,no
+1507,8,28,chest
+1512,189,162,subarachnoid
+1514,189,328,right sylvian fissure
+1529,192,192,basilar artery
+1531,192,192,basilar artery
+1540,1,1,no
+1542,1,0,yes
+1548,1,1,no
+1549,48,48,right hemisphere
+1551,48,48,right hemisphere
+1578,196,104,right frontal lobe
+1580,196,158,left occipital lobe
+1616,1,1,no
+1618,1,1,no
+1622,199,199,hydrocephalus
+1624,199,199,hydrocephalus
+1626,8,8,brain
+1627,18,184,with contrast
+1628,18,18,ct
+1630,20,104,right frontal lobe
+1632,20,20,right upper lobe
+1651,93,93,xray
+1652,200,226,right side of trachea
+1654,201,444,right paratracheal mass lesion
+1678,1,0,yes
+1680,1,1,no
+1686,0,0,yes
+1688,0,1,no
+1701,203,204,ribs
+1703,0,0,yes
+1721,116,1,no
+1722,116,298,man
+1736,1,1,no
+1738,0,0,yes
+1753,1,1,no
+1755,1,1,no
+1758,109,40,right
+1768,0,0,yes
+1781,1,1,no
+1783,1,1,no
+1810,218,218,maxillary sinuses
+1812,218,202,left cerebellum
+1850,1,0,yes
+1851,1,1,no
+1853,219,430,bilateral pleural effusion
+1867,0,1,no
+1872,40,40,right
+1874,40,40,right
+1884,204,204,ribs
+1886,204,204,ribs
+1888,1,1,no
+1890,1,1,no
+1892,1,1,no
+1894,1,1,no
+1910,1,1,no
+1912,1,1,no
+1930,1,1,no
+1932,1,1,no
+1943,0,1,no
+1945,0,0,yes
+1951,1,0,yes
+1968,0,0,yes
+1982,10,10,axial
+2001,231,231,lateral and third ventricular hydrocephalus
+2003,231,144,4th ventricle
+2005,1,1,no
+2007,1,1,no
+2035,1,1,no
+2037,1,1,no
+2043,1,1,no
+2045,1,1,no
+2082,0,0,yes
+2084,0,0,yes
+2094,245,123,fat
+2096,245,346,right sided pleural effusion
+2121,10,10,axial
+2135,0,0,yes
+2137,0,0,yes
+2143,39,0,yes
+2144,0,0,yes
+2158,0,0,yes
+2160,0,0,yes
+2166,253,10,axial
+2168,253,10,axial
+2185,8,8,brain
+2187,254,10,axial
+2203,1,1,no
+2205,1,1,no
+2223,8,8,brain
+2224,8,451,cortical ribbon of right occipital lobe with extension into right posterior temporal lobe
+2226,260,260,kidney cyst
+2228,260,251,suprasellar
+2254,1,0,yes
+2256,1,0,yes
+2257,1,1,no
+2259,1,1,no
+2261,1,1,no
+2263,1,1,no
+2268,10,184,with contrast
+2269,10,10,axial
+2311,0,1,no
+2313,0,0,yes
+2318,1,1,no
+2320,1,1,no
+2328,28,8,brain
+2333,1,1,no
+2335,1,1,no
+2349,0,0,yes
+2352,144,144,4th ventricle
+2369,1,0,yes
+2371,0,1,no
+2372,0,0,yes
+2377,1,1,no
+2381,1,1,no
+2383,1,1,no
+2406,1,1,no
+2408,1,1,no
+2420,0,0,yes
+2425,283,283,ascending colon
+2428,0,259,hemorrhage
+2430,0,0,yes
+2448,1,0,yes
+2452,1,1,no
+2458,40,40,right
+2465,0,0,yes
+2475,0,0,yes
+2479,0,1,no
+2481,290,266,nodules
+2509,1,1,no
+2515,0,0,yes
+2520,1,1,no
+2524,1,1,no
+2538,0,1,no
+2545,0,0,yes
+2546,0,1,no
+2552,86,224,left temporal horn
+2554,299,299,cystic
+2563,1,1,no
+2568,1,1,no
+2581,300,282,5cm
+2586,0,0,yes
+2592,1,1,no
+2594,0,1,no
+2596,1,1,no
+2598,0,0,yes
+2600,10,10,axial
+2607,1,1,no
+2617,235,9,chest xray
+2623,303,168,medial and lateral rectus
+2627,304,17,diffuse
+2632,1,1,no
+2642,1,1,no
+2652,0,1,no
+2660,1,1,no
+2662,309,82,left
+2682,0,1,no
+2702,1,1,no
+2710,1,1,no
+2714,1,1,no
+2716,18,18,ct
+2721,0,0,yes
+2724,1,0,yes
+2726,1,0,yes
+2731,1,0,yes
+2735,63,40,right
+2741,315,91,pacemaker
+2745,1,1,no
+2752,317,60,5 cm
+2770,71,1,no
+2771,24,1,no
+2788,0,0,yes
+2790,0,1,no
+2817,0,0,yes
+2818,0,0,yes
+2821,311,311,stomach
+2823,311,311,stomach
+2834,0,0,yes
+2837,0,0,yes
+2839,0,0,yes
+2845,1,0,yes
+2878,334,334,motion
+2880,334,334,motion
+2902,10,1,no
+2903,10,10,axial
+2904,0,0,yes
+2905,0,0,yes
+2938,324,324,flair
+2939,173,18,ct
+2940,339,204,ribs
+2942,339,339,calcified atherosclerosis
+2949,0,0,yes
+2952,0,0,yes
+2954,0,1,no
+2970,188,211,stomach bubble
+2987,343,343,soft tissue mass in region of terminal ileum with mesenteric lymphadenopathy
+2989,343,445,it is enlarged with prominence of aortic knob
+3001,1,1,no
+3003,1,0,yes
+3015,347,1,no
+3017,347,347,cavum vergae
+3026,235,157,non contrast ct
+3027,235,348,central hyperintensity and surrounding hypointensity
+3030,10,10,axial
+3055,1,1,no
+3057,1,1,no
+3059,1,1,no
+3061,1,1,no
+3084,356,356,proximal aspect of appendix
+3086,356,356,proximal aspect of appendix
+3132,0,1,no
+3136,1,1,no
+3138,1,1,no
