@@ -9,8 +9,6 @@ from pathlib import Path
 import shutil
 import pickle
 
-from modeling.transformer_decoder import VqaTransformerDecoder
-from modeling.transformer_encoder import VqaTransformerEncoder
 import wandb
 from tqdm import tqdm 
 import matplotlib.pyplot as plt
@@ -26,6 +24,8 @@ from transformers.data import DataCollatorWithPadding
 
 
 from modeling import CLIPwithLinearFusion, PMC_CLIPforVQA
+from modeling.transformer_decoder import VqaTransformerDecoder
+from modeling.transformer_encoder import VqaTransformerEncoder
 from transform import train_transform, test_transform
 from data_collator import torch_images_and_label_data_collator
 
@@ -184,7 +184,7 @@ if __name__ == '__main__':
         for batch in tqdm(data_loader):
             qids = batch['qid']
             batch.pop('qid')
-            batch = {k: v.to(device) for k, v in batch.items()}
+            batch = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in batch.items()}
             output = model(**batch)
             logits = output.logits
             if args.task == "yesno":
@@ -210,8 +210,8 @@ if __name__ == '__main__':
         tot_correct = 0
         with torch.no_grad():
             for batch in tqdm(data_loader):
-                batch = {k: v.to(device) for k, v in batch.items()}
-                print("qid:", batch['qid'])
+                batch.pop('qid')
+                batch = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in batch.items()}
                 output = model(**batch)
                 logits = output.logits
                 if args.task == "yesno":
