@@ -1,0 +1,409 @@
+qid,gt,pred_label,pred_sent
+11,0,1,no
+13,0,0,yes
+14,0,0,yes
+22,0,0,yes
+24,0,1,no
+32,0,0,yes
+34,0,0,yes
+36,1,1,no
+38,1,1,no
+40,1,1,no
+42,1,1,no
+46,0,0,yes
+47,0,0,yes
+49,0,0,yes
+86,0,0,yes
+87,0,0,yes
+121,0,0,yes
+123,0,0,yes
+158,1,1,no
+160,1,1,no
+162,0,0,yes
+164,0,0,yes
+178,0,0,yes
+180,0,0,yes
+186,1,1,no
+188,1,1,no
+198,0,0,yes
+200,0,1,no
+222,0,0,yes
+224,0,0,yes
+239,0,0,yes
+241,0,0,yes
+269,1,1,no
+271,1,1,no
+275,0,0,yes
+277,0,0,yes
+298,1,0,yes
+300,1,0,yes
+302,12,1,no
+304,12,325,sigmoid flexture of colon
+306,13,169,pineal gland
+308,13,204,ribs
+310,0,0,yes
+319,14,446,well circumscribed
+321,14,204,ribs
+335,0,0,yes
+393,55,10,axial
+401,32,1,no
+402,32,32,1
+413,30,172,congenital developmental disorder history of surgery and past manipulation
+414,30,40,right
+415,34,204,ribs
+417,34,204,ribs
+423,1,1,no
+425,1,1,no
+427,37,17,diffuse
+429,0,0,yes
+431,38,365,abnormal hyperintensity in right occipital lobe
+433,38,40,right
+458,43,309,bilateral lungs
+460,43,169,pineal gland
+462,43,172,congenital developmental disorder history of surgery and past manipulation
+470,44,40,right
+472,44,44,right lung
+475,0,1,no
+485,0,0,yes
+487,0,0,yes
+493,1,1,no
+495,1,0,yes
+503,93,169,pineal gland
+513,1,0,yes
+522,1,1,no
+524,1,1,no
+531,0,1,no
+532,1,1,no
+557,1,1,no
+571,32,32,1
+573,1,1,no
+595,82,40,right
+596,82,40,right
+598,0,1,no
+600,1,1,no
+606,1,1,no
+608,69,32,1
+610,1,1,no
+612,1,1,no
+629,0,0,yes
+631,75,291,2
+633,0,0,yes
+648,80,40,right
+663,0,0,yes
+709,90,40,right
+711,0,1,no
+713,1,0,yes
+718,92,325,sigmoid flexture of colon
+720,1,1,no
+722,86,86,anterior mediastinum
+724,40,40,right
+726,94,40,right
+728,1,0,yes
+733,82,40,right
+734,82,40,right
+750,1,1,no
+751,0,0,yes
+759,1,1,no
+763,1,1,no
+773,307,169,pineal gland
+787,1,1,no
+790,1,1,no
+797,1,0,yes
+809,10,10,axial
+811,1,1,no
+814,1,1,no
+821,1,1,no
+830,114,173,mr flair
+832,114,148,air
+840,1,0,yes
+842,1,0,yes
+874,1,1,no
+900,0,0,yes
+906,0,0,yes
+908,0,0,yes
+910,0,0,yes
+912,0,0,yes
+918,123,123,fat
+920,123,123,fat
+925,1,0,yes
+926,1,0,yes
+946,1,1,no
+948,1,0,yes
+950,1,0,yes
+951,1,0,yes
+979,0,0,yes
+981,0,0,yes
+983,0,0,yes
+985,0,0,yes
+989,0,0,yes
+991,0,0,yes
+1007,0,1,no
+1009,0,1,no
+1011,1,1,no
+1013,1,1,no
+1046,0,0,yes
+1048,0,0,yes
+1050,130,123,fat
+1052,130,169,pineal gland
+1080,0,0,yes
+1082,0,0,yes
+1108,20,169,pineal gland
+1110,20,20,right upper lobe
+1116,0,0,yes
+1118,0,0,yes
+1132,135,10,axial
+1175,140,19,pancreas
+1177,140,19,pancreas
+1205,104,40,right
+1209,1,0,yes
+1210,1,1,no
+1238,235,324,flair
+1259,0,0,yes
+1265,152,32,1
+1266,1,1,no
+1268,1,0,yes
+1273,1,1,no
+1280,40,40,right
+1282,40,40,right
+1284,166,40,right
+1286,166,40,right
+1307,0,0,yes
+1309,0,0,yes
+1311,82,40,right
+1312,82,40,right
+1330,10,10,axial
+1348,63,63,right side
+1350,63,63,right side
+1375,0,0,yes
+1377,0,0,yes
+1379,0,1,no
+1384,175,24,bilateral
+1386,175,24,bilateral
+1393,0,1,no
+1395,0,0,yes
+1409,0,0,yes
+1456,1,1,no
+1461,337,10,axial
+1466,10,10,axial
+1467,10,10,axial
+1476,185,169,pineal gland
+1478,185,185,right lower lateral lung field
+1480,186,291,2
+1482,186,0,yes
+1492,116,446,well circumscribed
+1493,116,58,less than half thorax
+1500,1,1,no
+1502,1,1,no
+1506,0,1,no
+1507,8,263,fatty infiltration
+1512,189,54,above
+1514,189,54,above
+1529,192,278,acute stroke
+1531,192,40,right
+1540,1,1,no
+1542,1,1,no
+1548,1,0,yes
+1549,48,447,exophytic cyst
+1551,48,124,medical process
+1578,196,153,omental caking
+1580,196,202,left cerebellum
+1616,1,1,no
+1618,1,1,no
+1622,199,1,no
+1624,199,199,hydrocephalus
+1626,8,365,abnormal hyperintensity in right occipital lobe
+1627,18,10,axial
+1628,18,291,2
+1630,20,204,ribs
+1632,20,40,right
+1651,93,169,pineal gland
+1652,200,447,exophytic cyst
+1654,201,291,2
+1678,1,1,no
+1680,1,1,no
+1686,0,0,yes
+1688,0,1,no
+1701,203,204,ribs
+1703,0,1,no
+1721,116,420,gray matter
+1722,116,420,gray matter
+1736,1,1,no
+1738,0,0,yes
+1753,1,1,no
+1755,1,1,no
+1758,109,44,right lung
+1768,0,1,no
+1781,1,1,no
+1783,1,1,no
+1810,218,169,pineal gland
+1812,218,325,sigmoid flexture of colon
+1850,1,0,yes
+1851,1,1,no
+1853,219,201,bleeding in right posteroinferior cerebellum
+1867,0,1,no
+1872,40,40,right
+1874,40,40,right
+1884,204,204,ribs
+1886,204,204,ribs
+1888,1,1,no
+1890,1,1,no
+1892,1,1,no
+1894,1,1,no
+1910,1,1,no
+1912,1,1,no
+1930,1,1,no
+1932,1,1,no
+1943,0,1,no
+1945,0,0,yes
+1951,1,0,yes
+1968,0,0,yes
+1982,10,10,axial
+2001,231,420,gray matter
+2003,231,169,pineal gland
+2005,1,0,yes
+2007,1,1,no
+2035,1,1,no
+2037,1,1,no
+2043,1,0,yes
+2045,1,1,no
+2082,0,0,yes
+2084,0,1,no
+2094,245,247,left rectus abdominus
+2096,245,447,exophytic cyst
+2121,10,10,axial
+2135,0,1,no
+2137,0,1,no
+2143,39,204,ribs
+2144,0,0,yes
+2158,0,0,yes
+2160,0,0,yes
+2166,253,0,yes
+2168,253,40,right
+2185,8,173,mr flair
+2187,254,173,mr flair
+2203,1,1,no
+2205,1,1,no
+2223,8,8,brain
+2224,8,365,abnormal hyperintensity in right occipital lobe
+2226,260,291,2
+2228,260,123,fat
+2254,1,0,yes
+2256,1,0,yes
+2257,1,0,yes
+2259,1,1,no
+2261,1,1,no
+2263,1,0,yes
+2268,10,173,mr flair
+2269,10,10,axial
+2311,0,0,yes
+2313,0,0,yes
+2318,1,1,no
+2320,1,1,no
+2328,28,86,anterior mediastinum
+2333,1,1,no
+2335,1,1,no
+2349,0,0,yes
+2352,144,144,4th ventricle
+2369,1,0,yes
+2371,0,0,yes
+2372,0,0,yes
+2377,1,1,no
+2381,1,1,no
+2383,1,1,no
+2406,1,1,no
+2408,1,1,no
+2420,0,0,yes
+2425,283,0,yes
+2428,0,388,bronchiectasis
+2430,0,0,yes
+2448,1,0,yes
+2452,1,1,no
+2458,40,40,right
+2465,0,1,no
+2475,0,0,yes
+2479,0,0,yes
+2481,290,325,sigmoid flexture of colon
+2509,1,1,no
+2515,0,0,yes
+2520,1,1,no
+2524,1,1,no
+2538,0,1,no
+2545,0,0,yes
+2546,0,0,yes
+2552,86,40,right
+2554,299,169,pineal gland
+2563,1,1,no
+2568,1,1,no
+2581,300,19,pancreas
+2586,0,0,yes
+2592,1,0,yes
+2594,0,0,yes
+2596,1,0,yes
+2598,0,0,yes
+2600,10,10,axial
+2607,1,1,no
+2617,235,173,mr flair
+2623,303,204,ribs
+2627,304,174,right cerebellum
+2632,1,1,no
+2642,1,1,no
+2652,0,1,no
+2660,1,1,no
+2662,309,40,right
+2682,0,0,yes
+2702,1,1,no
+2710,1,1,no
+2714,1,1,no
+2716,18,10,axial
+2721,0,0,yes
+2724,1,1,no
+2726,1,1,no
+2731,1,0,yes
+2735,63,40,right
+2741,315,40,right
+2745,1,1,no
+2752,317,394,aorta is bright
+2770,71,40,right
+2771,24,17,diffuse
+2788,0,1,no
+2790,0,1,no
+2817,0,0,yes
+2818,0,0,yes
+2821,311,148,air
+2823,311,0,yes
+2834,0,0,yes
+2837,0,0,yes
+2839,0,0,yes
+2845,1,0,yes
+2878,334,69,it is less than half width of thorax
+2880,334,447,exophytic cyst
+2902,10,324,flair
+2903,10,10,axial
+2904,0,0,yes
+2905,0,0,yes
+2938,324,324,flair
+2939,173,173,mr flair
+2940,339,204,ribs
+2942,339,339,calcified atherosclerosis
+2949,0,0,yes
+2952,0,0,yes
+2954,0,1,no
+2970,188,44,right lung
+2987,343,58,less than half thorax
+2989,343,10,axial
+3001,1,1,no
+3003,1,1,no
+3015,347,379,biconvex
+3017,347,365,abnormal hyperintensity in right occipital lobe
+3026,235,18,ct
+3027,235,324,flair
+3030,10,10,axial
+3055,1,1,no
+3057,1,1,no
+3059,1,1,no
+3061,1,1,no
+3084,356,390,csf is brightly lit
+3086,356,124,medical process
+3132,0,0,yes
+3136,1,1,no
+3138,1,1,no
