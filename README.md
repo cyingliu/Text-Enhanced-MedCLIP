@@ -29,6 +29,23 @@ CS 231N Final Project
         - pubmedclip
           - ```clip_model_name```: flaviagiammarino/pubmed-clip-vit-base-patch32
           - ```text_model_path```: pub_med_clip_MedMCQA_lr-5e-06-wd-0.1-epoch-3-shuffled.pth
+    - CLIP + transformer fusion
+        ```
+        python train_vqa.py \
+        --dataset cs231n-Medco/vqa-rad \
+        --task ["yesno" or "all"] \
+        --base_model [clip or pubmedclip] \
+        --text_model_path [(optional) path_to_text_model_checkpoint] \
+        --clip_model_name flaviagiammarino/pubmed-clip-vit-base-patch32 \
+        --transformer_fusion [decoder or encoder]
+        --transformer_num_layers [(optional) 2]
+        --output_dir path_to_output_directory \
+        --learning_rate 2e-6 \
+        --num_train_epochs 20 \
+        --logging_steps 50 \
+        --save_steps 50 \
+        --load_best_model_at_end
+        ```
     - PMC-CLIP (pre-trained self-attention fusion)
         - Download checkpoint from [pmc_oa_beta](https://huggingface.co/datasets/axiong/pmc_oa_beta/blob/main/checkpoint.pt)
         ```
