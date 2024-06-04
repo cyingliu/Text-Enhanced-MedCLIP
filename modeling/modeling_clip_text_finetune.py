@@ -60,14 +60,6 @@ class PMC_CLIPTextFinetunedModule(nn.Module):
         if "text_encoder.embeddings.position_ids" in sd:
             del sd["text_encoder.embeddings.position_ids"]
         self.base_model.load_state_dict(sd)
-
-        text_embed_dim = self.base_model.transformer_width # 768
-        self.MLP = nn.Sequential(nn.Linear(text_embed_dim, 512),
-                                 nn.ReLU(),
-                                 nn.Linear(512, 128),
-                                 nn.ReLU(),
-                                 nn.Linear(128, 1))
-        self.num_choices = num_choices
         
         projection_dim = self.base_model.transformer_width # 768
         self.MLP = nn.Sequential(nn.Linear(projection_dim, 512),
