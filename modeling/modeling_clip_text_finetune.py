@@ -15,13 +15,8 @@ from .pmc_clip.model import PMC_CLIP
 class CLIPTextFinetunedModule(nn.Module):
     def __init__(self, clip_model_name, num_choices=4):
         super().__init__()
-        self.base_model = AutoModel.from_pretrained(clip_model_name)
-        projection_dim = self.base_model.projection_dim
-        self.MLP = nn.Sequential(nn.Linear(projection_dim, 512),
-                                 nn.ReLU(),
-                                 nn.Linear(512, 128),
-                                 nn.ReLU(),
-                                 nn.Linear(128, 1))
+        self.text_model = AutoModel.from_pretrained(clip_model_name).text_model
+        self.MLP = nn.Linear(512, 1)        
         self.num_choices = num_choices
 
     def forward(
@@ -30,7 +25,7 @@ class CLIPTextFinetunedModule(nn.Module):
             attention_mask: Optional[torch.Tensor] = None,
             ):
         batch_size = input_ids.shape[0] // self.num_choices
-        text_features = self.base_model.text_model(input_ids, attention_mask).pooler_output
+        text_features = self.text_model(input_ids, attention_mask).pooler_output
         logits = self.MLP(text_features).squeeze()
         logits = logits.view(batch_size, self.num_choices)
         return logits
@@ -67,6 +62,8 @@ class PMC_CLIPTextFinetunedModule(nn.Module):
                                  nn.Linear(512, 128),
                                  nn.ReLU(),
                                  nn.Linear(128, 1))
+        
+        self.num_choices = num_choices
                 
     def forward(self,
             input_ids: Optional[torch.LongTensor] = None, 
