@@ -78,4 +78,26 @@ CS 231N Final Project
     --splits (optional) ["test-yesno", "test-nonyesno", "test-closed", "test-open"] \
     -- other model related arguments same as training
     ```
+- Fine-tune on MedMCQA dataset
+    - CLIP or PubMedCLIP
+        ```
+        python train_clip_medmcqa.py \
+        --dataset openlifescienceai/medmcqa \
+        --base_model clip \
+        --clip_model_name ["openai/clip-vit-base-patch32" or "flaviagiammarino/pubmed-clip-vit-base-patch32"] \
+        --output_dir path_to_output_directory \
+        --batch_size 16 \
+        --num_train_epochs 3
+        ```
+    - PMC-CLIP
+        ```
+        python train_clip_medmcqa.py \
+        --dataset openlifescienceai/medmcqa \
+        --base_model pmc-clip \
+        --checkpoint path_to_checkpoint \
+        --config ./modeling/pmc_clip/model_configs/RN50_fusion4.json \
+        --output_dir path_to_output_directory \
+        --batch_size 16 \
+        --num_train_epochs 3
+        ```
         
