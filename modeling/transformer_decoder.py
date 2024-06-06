@@ -10,7 +10,7 @@ from transformers import AutoModel
 from transformers.modeling_outputs import ImageClassifierOutput
 
 """
-Based on some code (with modification) from CS231N assigment and https://github.com/huggingface/transformers/blob/main/src/transformers/models/clip/modeling_clip.py
+Based on some code (with modification) from CS231N assigment https://cs231n.github.io/assignments2024/assignment3/ and https://github.com/huggingface/transformers/blob/main/src/transformers/models/clip/modeling_clip.py
 """
 class VqaTransformerDecoder(nn.Module):
     def __init__(self, clip_model_name, text_model_path=None, num_labels=2, num_heads=4,
