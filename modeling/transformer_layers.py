@@ -4,7 +4,7 @@ from torch.nn import functional as F
 import math
 
 """
-Code source: CS231N assigment.
+Code source: CS231N assignment https://cs231n.github.io/assignments2024/assignment3/.
 This file defines layer types that are commonly used for transformers.
 """
 
