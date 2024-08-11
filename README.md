@@ -103,7 +103,7 @@ Please refer to the [report](CS_231N_Final_Report.pdf) for further details.
         --num_train_epochs 3
         ```
 ## Poster
-![poster](CS_231N_Final_Poster.pdf)
+![poster](CS_231N_Final_Poster.png)
 
 ### Acknowledgement
 
