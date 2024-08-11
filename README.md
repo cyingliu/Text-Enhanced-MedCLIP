@@ -1,5 +1,7 @@
-# Text-Enhanced-MedCLIP
-CS 231N Final Project
+# Text-Enhanced Medical Visual Question Answering
+This is the final project for the Stanford CS 231N class. Medical VQA is a task that requires comprehending both text-based queries and medical images to produce accurate answers. This project investigated the impact of aug- menting additional medical textual knowledge and various designs of fusion modules in the medical VQA system. 
+
+Please refer to the [report](CS_231N_Final_Report.pdf) for further details.
 
 ## Usage
 - Set up
@@ -100,4 +102,9 @@ CS 231N Final Project
         --batch_size 16 \
         --num_train_epochs 3
         ```
-        
+## Poster
+![poster](CS_231N_Final_Poster.pdf)
+
+### Acknowledgement
+
+The PMC-CLIP implementation part of the project was adapted from the [the offical report of PMC-CLIP](https://github.com/WeixiongLin/PMC-CLIP), we thanks to the authors for sharing their code.
